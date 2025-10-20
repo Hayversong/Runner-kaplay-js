@@ -32,7 +32,7 @@ export default function gameover(citySfx){
         k.pos(k.center().x, k.center().y - 300),
     ]);
     k.add([
-        k.text(`BEST SCORE : ${bestScore}`, {
+        k.text(`MELHOR SCORE : ${bestScore}`, {
             font: "mania",
             size: 64,
         }),
@@ -40,7 +40,7 @@ export default function gameover(citySfx){
         k.pos(k.center().x - 400, k.center().y - 200),
     ]);
     k.add([
-        k.text(`CURRENT SCORE : ${currentScore}`, {
+        k.text(`SCORE ATUAL : ${currentScore}`, {
             font: "mania",
             size: 64,
         }),
@@ -78,7 +78,7 @@ export default function gameover(citySfx){
 
     k.wait(1, () => {
         k.add([
-            k.text("Press Space/Click/Touch to Play Again", {
+            k.text("Pressione espaço/Clique/Toque para jogar de novo", {
                 font: "mania",
                 size: 64,
         }),
