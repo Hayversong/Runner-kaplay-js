@@ -2,6 +2,9 @@
 
 Um jogo infinite runner inspirado no universo de Sonic the Hedgehog, desenvolvido utilizando o framework Kaplay.js.
 Este projeto demonstra mecânicas essenciais de jogos estilo endless run, incluindo movimento contínuo, obstáculos, paralaxe de fundo, colisões, pontuação e aumento gradual de dificuldade.
+<img width="1698" height="947" alt="Image" src="https://github.com/user-attachments/assets/67b406a1-1261-47b3-b28d-6491955ebe05" />
+<img width="1682" height="939" alt="Image" src="https://github.com/user-attachments/assets/5a065e7c-bbeb-4fcc-8b90-ce6a9dea7c1d" />
+<img width="1440" height="934" alt="Image" src="https://github.com/user-attachments/assets/5e776a2c-b63f-4af6-81bb-bb12aad707b7" />
 
 ### Sobre o Projeto
 
