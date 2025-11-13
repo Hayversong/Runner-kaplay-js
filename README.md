@@ -21,9 +21,8 @@ Este projeto foi criado tanto para estudo quanto para demonstração das capacid
 - Parallax Background para dar profundidade
 - Tela de Game Over com opção de reiniciar
 
-### Tecnologias]
-
+### Tecnologias
 Este projeto foi feito com:
--HTML e CSS
--JavaScript
--Git e Github
+- HTML e CSS
+- JavaScript
+- Git e Github
