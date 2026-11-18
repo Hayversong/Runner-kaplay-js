@@ -2,12 +2,30 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Infinite Runner · Kaplay.js</title>
+    <title>Sonic Runner · Infinite runner em Kaplay.js</title>
+    <meta name="description" content="Infinite runner jogável no navegador, feito em JavaScript com Kaplay.js: parallax, combos ao pular nos inimigos, dificuldade progressiva e ranks de S a F." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/png" href="./favicon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content="Sonic Runner · Infinite runner em Kaplay.js" />
+    <meta property="og:description" content="Corra, pule nos inimigos para encadear combos e tente chegar ao rank S. Jogável no navegador, no teclado, mouse ou toque." />
+    <meta property="og:url" content="https://haysonicrunner.netlify.app/" />
+    <meta property="og:image" content="https://haysonicrunner.netlify.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <style>
+      html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+      canvas { display: block; outline: none; }
+      noscript { color: #fff; font-family: system-ui, sans-serif; display: block; padding: 2rem; text-align: center; }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <noscript>Este jogo precisa de JavaScript para rodar.</noscript>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
