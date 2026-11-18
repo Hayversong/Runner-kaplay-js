@@ -1,6 +1,6 @@
 # Sonic Infinite Runner – Kaplay.js
 
-**▶ Jogar no navegador:** https://hayversong.github.io/Runner-kaplay-js/
+**▶ Jogar no navegador:** https://haysonicrunner.netlify.app/
 
 Um jogo infinite runner inspirado no universo de Sonic the Hedgehog, desenvolvido utilizando o framework Kaplay.js.
 Este projeto demonstra mecânicas essenciais de jogos estilo endless run, incluindo movimento contínuo, obstáculos, paralaxe de fundo, colisões, pontuação e aumento gradual de dificuldade.
@@ -31,7 +31,7 @@ Este projeto foi feito com:
 - JavaScript e [Kaplay.js](https://kaplayjs.com/)
 - Vite
 - HTML e CSS
-- GitHub Actions e GitHub Pages para o deploy
+- Netlify para o deploy
 
 ### Como rodar localmente
 
