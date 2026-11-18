@@ -1,45 +1,69 @@
-# Sonic Infinite Runner – Kaplay.js
+<div align="center">
 
-**▶ Jogar no navegador:** https://haysonicrunner.netlify.app/
+# Sonic Runner
 
-Um jogo infinite runner inspirado no universo de Sonic the Hedgehog, desenvolvido utilizando o framework Kaplay.js.
-Este projeto demonstra mecânicas essenciais de jogos estilo endless run, incluindo movimento contínuo, obstáculos, paralaxe de fundo, colisões, pontuação e aumento gradual de dificuldade.
-<img width="1698" height="947" alt="Image" src="https://github.com/user-attachments/assets/67b406a1-1261-47b3-b28d-6491955ebe05" />
-<img width="1682" height="939" alt="Image" src="https://github.com/user-attachments/assets/5a065e7c-bbeb-4fcc-8b90-ce6a9dea7c1d" />
-<img width="1440" height="934" alt="Image" src="https://github.com/user-attachments/assets/5e776a2c-b63f-4af6-81bb-bb12aad707b7" />
+**Infinite runner jogável no navegador, feito em JavaScript com Kaplay.js.**
+Corra, colete anéis e pule em cima dos inimigos para encadear combos.
 
-### Sobre o Projeto
+[![Jogar agora](https://img.shields.io/badge/▶_Jogar_agora-haysonicrunner.netlify.app-FFDC00?style=for-the-badge&labelColor=111111)](https://haysonicrunner.netlify.app/)
 
-O objetivo do jogo é correr o máximo possível enquanto desvia de inimigos e coleta anéis, acumulando pontuação.
-O cenário se move constantemente em alta velocidade, simulando o estilo clássico de jogos do Sonic.
+![Kaplay.js](https://img.shields.io/badge/Kaplay.js-3001-E85A87?style=flat-square)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES_Modules-F7DF1E?style=flat-square&logo=javascript&logoColor=111111)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Netlify](https://img.shields.io/badge/deploy-Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
 
-Este projeto foi criado tanto para estudo quanto para demonstração das capacidades do Kaplay.js, um engine leve para desenvolvimento de jogos em JavaScript.
+<a href="https://haysonicrunner.netlify.app/"><img src="media/gameplay.gif" alt="Gameplay: Sonic corre pela cidade, pula em cima de inimigos encadeando combos, coleta anéis e termina com novo recorde" width="640"></a>
 
-### Principais mecânicas
+</div>
 
-- Movimentação contínua estilo runner
-- Pulo com física simples
-- Colisão com obstáculos
-- Coleta de anéis que aumentam a pontuação
-- Aumento progressivo da velocidade
-- Sistema de Pontuação e Highscore (armazenado no localStorage)
-- Parallax Background para dar profundidade
-- Tela de Game Over com opção de reiniciar
+## Como jogar
 
-### Tecnologias
-Este projeto foi feito com:
-- JavaScript e [Kaplay.js](https://kaplayjs.com/)
-- Vite
-- HTML e CSS
-- Netlify para o deploy
+| Ação | Teclado | Mouse | Celular |
+|---|---|---|---|
+| Começar / pular | `Espaço` | Clique | Toque |
 
-### Como rodar localmente
+- **Anel:** +1 ponto.
+- **Pular em cima de um inimigo:** destrói o inimigo e dá um impulso no ar. O primeiro vale +10; cada novo inimigo antes de tocar o chão aumenta o multiplicador do combo.
+- **Encostar num inimigo pelo chão:** fim de jogo.
+- A velocidade aumenta a cada segundo. No fim, a partida recebe um **rank de F a S**, e o melhor score fica salvo no navegador.
+
+## Como funciona
+
+O jogo inteiro tem pouco mais de 400 linhas, divididas assim:
+
+```text
+src/
+├── main.js            carrega sprites, fonte e sons e registra as cenas
+├── kaplayCtx.js       instância do Kaplay: resolução 1920×1080 com letterbox e botão "jump" mapeado para teclado, mouse e toque
+├── scenes/
+│   ├── mainMenu.js    tela inicial com melhor score e rank
+│   ├── game.js        partida: spawns, colisões, pontuação e dificuldade
+│   └── gameover.js    resultado, recorde e ranks
+├── entities/
+│   ├── sonic.js       jogador: física de pulo, animações e texto de pontos sobre a cabeça
+│   ├── motobug.js     inimigo
+│   ├── ring.js        anel
+│   └── scenery.js     cenário infinito com parallax, usado pelo menu e pela partida
+└── utils/
+    └── rank.js        tabela de pontuação → rank
+```
+
+Algumas decisões:
+
+- **Parallax com duas cópias por camada.** Fundo e plataformas têm duas cópias lado a lado. Quando a da frente sai da tela, ela vai para trás da outra e as duas trocam de papel. O fundo anda a uma velocidade fixa e baixa, e as plataformas acompanham a velocidade do jogo; a diferença entre as duas cria a profundidade.
+- **Entidades como funções-fábrica.** `makeSonic`, `makeMotobug` e `makeRing` devolvem objetos do Kaplay já com sprite, hitbox e tags. As cenas só posicionam e reagem às colisões por tag (`"enemy"`, `"ring"`).
+- **Dificuldade por tempo.** A velocidade começa em 300 e sobe 50 a cada segundo. Inimigos e anéis nascem em intervalos aleatórios, então nenhuma partida é igual.
+- **Um botão para tudo.** O botão virtual `jump` junta espaço, clique e toque (`touchToMouse`), e o mesmo código funciona no desktop e no celular.
+- **Debug só em desenvolvimento.** O inspetor do Kaplay (tecla `D`, com hitboxes e FPS) só liga com `import.meta.env.DEV`.
+
+## Rodando localmente
 
 ```bash
 npm install
-npm run dev
+npm run dev      # servidor de desenvolvimento (tecla D abre o modo debug)
+npm run build    # build de produção em dist/
 ```
 
-### Créditos
+## Créditos
 
 Projeto de fã, feito para estudo e sem fins comerciais. Sonic the Hedgehog, seus personagens, sprites e músicas pertencem à SEGA.

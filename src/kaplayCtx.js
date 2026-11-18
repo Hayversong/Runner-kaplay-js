@@ -13,8 +13,9 @@ const k = kaplay({
             mouse: "left",
         },
     },
-    debugKey:"d",
-    debug: true,
+    debugKey: "d",
+    // O overlay de depuração (tecla D) só fica disponível em desenvolvimento.
+    debug: import.meta.env.DEV,
 });
 
 export default k;
