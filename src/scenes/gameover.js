@@ -1,30 +1,32 @@
-import k from "../kaplayCtx"
+import k from "../kaplayCtx";
+import { getRank } from "../utils/rank";
 
 export default function gameover(citySfx){
     citySfx.paused = true;
     let bestScore = k.getData("best-score");
     const currentScore = k.getData("current-score");
 
-    const rankGrades = ["F", "E", "D", "C", "B", "A", "S"];
-    const rankValues = [50, 80, 100, 200, 300, 400, 500];
+    let currentRank = getRank(currentScore);
+    let bestRank = getRank(bestScore);
+    const isNewRecord = bestScore < currentScore;
 
-    let currentRank = "F";
-    let bestRank = "F";
-
-    for (let i = 0; i < rankValues.length; i++) {
-        if (rankValues[i] < currentScore) {
-            currentRank = rankGrades[i];
-        }
-
-        if (rankValues[i] < bestScore) {
-            bestRank = rankGrades[i];
-        }
+    if (isNewRecord) {
+        k.setData("best-score", currentScore);
+        bestScore = currentScore;
+        bestRank = currentRank;
     }
 
-        if (bestScore < currentScore) {
-            k.setData("best-score", currentScore);
-            bestScore = currentScore;
-            bestRank = currentRank;
+    if (isNewRecord) {
+        const recordText = k.add([
+            k.text("NOVO RECORDE!", { font: "mania", size: 64 }),
+            k.color(255, 220, 0),
+            k.anchor("center"),
+            k.pos(k.center().x, k.center().y - 420),
+            k.opacity(1),
+        ]);
+        recordText.onUpdate(() => {
+            recordText.opacity = 0.55 + 0.45 * Math.sin(k.time() * 6);
+        });
     }
     k.add([
         k.text("GAME OVER", { font: "mania", size: 96 }),

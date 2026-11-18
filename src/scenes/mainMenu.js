@@ -1,61 +1,61 @@
 import { makeSonic } from "../entities/sonic";
+import { makeScenery } from "../entities/scenery";
 import k from "../kaplayCtx";
+import { getRank } from "../utils/rank";
 
-export default function mainMenu(){
+const MENU_PLATFORM_SPEED = 4000;
+
+export default function mainMenu() {
     if (!k.getData("best-score")) k.setData("best-score", 0);
-    k.onButtonPress("jump", () => k.go("game"));
-    
-    const bgPieceWidth = 1920;
-    const bgPieces = [
-        k.add([
-            k.sprite("chemical-bg"),
-            k.pos(0, 0),
-            k.scale(2),
-            k.opacity(0.8)]),
-        k.add([
-            k.sprite("chemical-bg"), 
-            k.pos(bgPieceWidth * 2, 0),
-            k.scale(2),
-            k.opacity(0.8)
-        ]),
-    ];
+    const bestScore = k.getData("best-score");
 
-    const platformWidth = 1280;
-    const platforms = [
-        k.add([k.sprite("platforms"), k.pos(0, 450), k.scale(4)]),
-        k.add([k.sprite("platforms"), k.pos(platformWidth * 4, 450), k.scale(4)]),
-    ]
+    k.onButtonPress("jump", () => k.go("game"));
+
+    const scenery = makeScenery();
 
     k.add([
-        k.text("SONIC RUNNER", {font: "mania", size: 96}),
+        k.text("SONIC RUNNER", { font: "mania", size: 120 }),
         k.pos(k.center().x, 200),
         k.anchor("center"),
-    ])
+    ]);
+
+    const startText = k.add([
+        k.text("Pressione espaço / clique / toque para jogar", { font: "mania", size: 60 }),
+        k.pos(k.center().x, 340),
+        k.anchor("center"),
+        k.opacity(1),
+    ]);
+    startText.onUpdate(() => {
+        startText.opacity = 0.55 + 0.45 * Math.sin(k.time() * 4);
+    });
 
     k.add([
-        k.text("Pressione espaço/clique/ toque para jogar", {font: "mania", size: 60}),
-        k.pos(k.center().x, k.center().y - 200),
+        k.text("Pule em cima dos inimigos para encadear combos", { font: "mania", size: 40 }),
+        k.color(255, 220, 0),
+        k.pos(k.center().x, 430),
         k.anchor("center"),
-    ])
+    ]);
+
+    if (bestScore > 0) {
+        k.add([
+            k.text(`MELHOR SCORE : ${bestScore}   ·   RANK ${getRank(bestScore)}`, {
+                font: "mania",
+                size: 44,
+            }),
+            k.pos(k.center().x, 510),
+            k.anchor("center"),
+        ]);
+    }
+
+    k.add([k.rect(1920, 64), k.color(0, 0, 0), k.opacity(0.6), k.pos(0, 1016)]);
+    k.add([
+        k.text("Fan game feito para estudo  ·  Sonic the Hedgehog © SEGA", { font: "mania", size: 28 }),
+        k.pos(k.center().x, 1048),
+        k.anchor("center"),
+        k.opacity(0.85),
+    ]);
 
     makeSonic(k.vec2(200, 745));
 
-    k.onUpdate(() => {
-        if(bgPieces[1].pos.x < 0){
-            bgPieces[0].moveTo(bgPieces[1].pos.x + bgPieceWidth * 2, 0);
-            bgPiece.push(bgPieces.shift());
-        }
-
-        bgPieces[0].move(-100, 0);
-        bgPieces[1].moveTo(bgPieces[0].pos.x + bgPieceWidth * 2, 0);
-
-        if (platforms[1].pos.x < 0) {
-        platforms[0].moveTo(platforms[1].pos.x + platforms[1].width * 4, 450);
-        platforms.push(platforms.shift());
-    }
-
-        platforms[0].move(-4000, 0);
-        platforms[1].moveTo(platforms[0].pos.x + platforms[1].width * 4, 450);
-    })
+    k.onUpdate(() => scenery.update(MENU_PLATFORM_SPEED));
 }
-console.log(k.getSprite("chemical-bg"));
